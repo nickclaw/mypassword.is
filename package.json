@@ -1,0 +1,24 @@
+{
+  "name": "mypassword.is",
+  "version": "0.1.0",
+  "description": "mypassword.is =============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nickclaw/mypassword.is.git"
+  },
+  "author": "Nicholas Clawson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nickclaw/mypassword.is/issues"
+  },
+  "homepage": "https://github.com/nickclaw/mypassword.is",
+  "dependencies": {
+    "koa": "^0.13.0",
+    "lodash": "^2.4.1",
+    "mongoose": "^3.8.19"
+  }
+}
