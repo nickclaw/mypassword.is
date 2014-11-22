@@ -3,6 +3,7 @@
     margin: 0px;
     padding: 0px;
     position: relative;
+    text-rendering: optimizeLegibility;
 }
 
 html, body {
@@ -10,8 +11,4 @@ html, body {
     height: 100%;
     font-family: sans-serif;
     font-size: 13pt;
-}
-
-body {
-    overflow-y: scroll;
 }

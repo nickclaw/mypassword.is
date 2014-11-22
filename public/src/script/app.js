@@ -4,7 +4,7 @@ angular.module('app', ['ngRoute'])
         '$routeProvider',
         function($locationProvider, $routeProvider) {
             $locationProvider
-                .html5Mode(false)
+                .html5Mode(true)
                 .hashPrefix('!');
 
             $routeProvider
@@ -13,7 +13,7 @@ angular.module('app', ['ngRoute'])
                     controller: 'HomeController'
                 })
                 .when('/entry/:id', {
-                    templateUrl: '/static/template/entry.html',
+                    template: '<entry entry="entry"></entry>',
                     controller: 'EntryController'
                 });
         }
@@ -38,13 +38,6 @@ angular.module('app', ['ngRoute'])
                     $scope.loading = false;
                 });
             };
-
-            $scope.submit = function(password, reason) {
-                return $http.post('/api', {
-                    password: password,
-                    reason: reason
-                });
-            }
         }
     ])
     .directive('entry', function() {
@@ -67,22 +60,18 @@ angular.module('app', ['ngRoute'])
             $scope.loadEntries(10);
             $scope.password = "";
             $scope.reason = "";
-
-            $scope.add = function() {
-                $scope.submit($scope.password, $scope.reason)
-                    .then(function(data) {
-                        $scope.entries.unshift(data.data);
-                    });
-
-                $scope.password = "";
-                $scope.reason = "";
-            }
         }
     ])
     .controller('EntryController', [
         '$scope',
         '$http',
-        function($scope, $http) {
+        '$routeParams',
+        function($scope, $http, $routeParams) {
+            $scope.entry = {};
+            $http.get('/api/' + $routeParams.id).then(function(data) {
+                $scope.entry = data.data;
+            });
 
+            $scope.loadEntries(3);
         }
     ]);
