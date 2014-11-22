@@ -1,0 +1,44 @@
+entry.basic {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30%;
+    border-top: solid 1px black;
+
+
+    div {
+        display: inline-block;
+    }
+
+    .password {
+        font-family: monospace;
+        font-size: 2rem;
+    }
+
+    .reason {
+        font-family: sans-serif;
+    }
+
+    &.reverse {
+        .password {order: 1;}
+        .reason {order: -1;}
+    }
+
+    &.n {
+        justify-content: flex-start;
+    }
+
+    &.s {
+        justify-content: flex-end;
+    }
+
+    &.w {
+        text-align: left;
+    }
+
+    &.e {
+        text-align: right;
+    }
+}
