@@ -21,6 +21,17 @@ entry.basic {
         font-family: sans-serif;
     }
 
+    .info {
+        display: block;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+
+        li {
+            display: inline-block;
+        }
+    }
+
     &.reverse {
         .password {order: 1;}
         .reason {order: -1;}

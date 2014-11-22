@@ -28,7 +28,7 @@ angular.module('app', ['ngRoute'])
             });
 
             $scope.loadEntries = function(count) {
-                $http.get('/api', {
+                return $http.get('/api', {
                     params: {
                         offset: $scope.entries.length,
                         limit: count
@@ -36,6 +36,13 @@ angular.module('app', ['ngRoute'])
                 }).success(function(data) {
                     $scope.entries.push.apply($scope.entries, data);
                     $scope.loading = false;
+                });
+            };
+
+            $scope.submit = function(password, reason) {
+                return $http.post('/api', {
+                    password: password,
+                    reason: reason
                 });
             }
         }
@@ -58,6 +65,18 @@ angular.module('app', ['ngRoute'])
         '$http',
         function($scope, $http) {
             $scope.loadEntries(10);
+            $scope.password = "";
+            $scope.reason = "";
+
+            $scope.add = function() {
+                $scope.submit($scope.password, $scope.reason)
+                    .then(function(data) {
+                        $scope.entries.unshift(data.data);
+                    });
+
+                $scope.password = "";
+                $scope.reason = "";
+            }
         }
     ])
     .controller('EntryController', [
