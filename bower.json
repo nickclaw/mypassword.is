@@ -7,9 +7,5 @@
     "Nicholas Clawson <nickclaw@gmail.com>"
   ],
   "license": "MIT",
-  "private": true,
-  "dependencies": {
-    "angular": "~1.3.3",
-    "angular-route": "~1.3.3"
-  }
+  "private": true
 }

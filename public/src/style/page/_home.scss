@@ -8,43 +8,38 @@ header {
         width: 100%;
         min-height: 100%;
 
-        p, h1 {
+        p, input, textarea {
             min-width: 300px;
             margin-left: 10%;
+            width: 50%;
         }
 
         p {
-            width: 50%;
             font-size: 2rem;
             margin-bottom: 20px;
             line-height: 135%;
-            font-family: 'Lola';
+            font-family: 'Lola', serif;
             opacity: .8;
         }
 
-        h1 {
+        input {
             font-size: 5rem;
             font-weight: normal;
             font-family: monospace;
-        }
+            outline: none;
+            border: none;
 
-        .blink {
-            display: inline-block;
-
-            &:after {
-                content: "_";
-                position: relative;
-                display: inline-block;
-                bottom: 10px;
-                -webkit-animation: blink 1s linear infinite;
+            &::-webkit-input-placeholder {
+                color: black;
             }
         }
-    }
-}
 
-@-webkit-keyframes blink {
-    0% {opacity: 0;}
-    45% {opacity: 0;}
-    55% {opacity: 1;}
-    100% {opacity: 1;}
+        textarea {
+            font-size: 1.5rem;
+            font-weight: lighter;
+            font-family: 'Lola', serif;
+            outline: none;
+            border: none;
+        }
+    }
 }
