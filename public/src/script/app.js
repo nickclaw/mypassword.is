@@ -48,18 +48,75 @@ angular.module('app', ['ngRoute'])
                 entry: '='
             },
             link: function($scope, elem, attr) {
-                elem.addClass($scope.entry.view.type);
-                elem.addClass($scope.entry.view.classes.join(' '));
+                elem.attr('ng-class', 'entry.view.type')
+                elem.attr('id', $scope.entry._id);
+                console.log($scope.entry);
             }
         }
     })
+    .directive('expand', function() {
+        return {
+            restrict: 'A',
+            template: '<div class="expand-ruler"><ng-transclude></ng-transclude></div>',
+            transclude: true,
+            scope: {
+                expand: '='
+            },
+            link: function($scope, elem, attr) {
+                var ruler = elem.children()[0];
+
+                $scope.$watch('expand', setHeight);
+                setHeight();
+
+                function setHeight() {
+                    if ($scope.expand) {
+                        elem[0].style.height = ruler.clientHeight + "px";
+                        elem.addClass('expand-expanded');
+                        elem.removeClass('expand-collapsed');
+                    } else {
+                        elem[0].style.height = "0px";
+                        elem.removeClass('expand-expanded');
+                        elem.addClass('expand-collapsed');
+                    }
+                }
+            }
+        }
+    })
+    .directive('loading', [
+        '$interval',
+        function($interval) {
+            return {
+                restrict: 'E',
+                template: '<span class="blink">{{text}}</span>',
+                link: function($scope, elem) {
+                    var string = "loading more",
+                        count = 0;
+
+                    $interval(function() {
+                        $scope.text = string.slice(0, count++ % string.length + 1);
+                    }, 250);
+                }
+            }
+        }
+    ])
     .controller('HomeController', [
         '$scope',
         '$http',
-        function($scope, $http) {
-            $scope.loadEntries(10);
-            $scope.password = "";
-            $scope.reason = "";
+        '$location',
+        '$anchorScroll',
+        '$timeout',
+        function($scope, $http, $location, $anchorScroll, $timeout) {
+            $scope.loadEntries(3);
+            $scope.model = {
+                password: "",
+                reason: ""
+            };
+
+            $scope.create = function() {
+                $http.post('/api', $scope.model).then(function(result) {
+                    $location.path('/entry/' + result.data._id).search({new: true});
+                });
+            };
         }
     ])
     .controller('EntryController', [
