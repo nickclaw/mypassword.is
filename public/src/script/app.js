@@ -29,16 +29,29 @@ angular.module('app', ['ngRoute'])
 
             $scope.$on('$routeChangeStart', function(next, current) {
                 $scope.entries = [];
-                $scope.loading = false;
+                $scope.loading = true;
                 $scope.done = false;
             });
 
+            /**
+             *
+             *
+             */
             $scope.loadEntries = function(count, after) {
+
+                // get default values
+                count = count || 5;
+                if (!after) {
+                    if ($scope.entries.length) {
+                        after = $scope.entries[$scope.entries.length - 1]._id;
+                    }
+                }
+
                 $scope.loading = true;
                 return $http.get('/api', {
                     params: {
-                        offset: $scope.entries.length,
-                        limit: count
+                        limit: count,
+                        after: after
                     }
                 }).success(function(data) {
                     $scope.done = data.length === 0;
@@ -56,9 +69,7 @@ angular.module('app', ['ngRoute'])
         '$scope',
         '$http',
         '$location',
-        '$anchorScroll',
-        '$timeout',
-        function($scope, $http, $location, $anchorScroll, $timeout) {
+        function($scope, $http, $location) {
             $scope.loadEntries(3);
             $scope.model = {
                 password: "",
@@ -80,8 +91,7 @@ angular.module('app', ['ngRoute'])
             $scope.entry = null;
             $http.get('/api/' + $routeParams.id).then(function(data) {
                 $scope.entry = data.data;
+                $scope.loadEntries(3, data.data._id);
             });
-
-            $scope.loadEntries(3);
         }
     ]);
