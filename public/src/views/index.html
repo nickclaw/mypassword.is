@@ -7,21 +7,31 @@
         <link href="/static/style/index.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <nav id="nav">
-            <a href="">submit</a>
-            <a href="">faq</a>
-            <a href="">legal</a>
-        </nav>
-        <header ng-view class="page">
+        <div scrollbottom="loadEntries(5)" disabled="loading || done" id="container">
+            <nav id="nav">
+                <a ng-href="/">home</a>
+                <a ng-href="/submit">submit</a>
+                <a ng-href="/faq">faq</a>
+                <a ng-href="/terms">legal</a>
+            </nav>
+            <header ng-view class="page">
 
-        </header>
+            </header>
 
-        <entry ng-repeat="entry in entries" entry="entry"></entry>
+            <entry ng-repeat="entry in entries" entry="entry"></entry>
 
-        <loading></loading>
+            <loading ng-if="!done"></loading>
+            <header ng-if="done">
+
+            </header>
+        </div>
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.js"></script>
         <script src="/static/script/app.js"></script>
+        <script src="/static/script/directive/entry.js"></script>
+        <script src="/static/script/directive/expand.js"></script>
+        <script src="/static/script/directive/scroll-bottom.js"></script>
+        <script src="/static/script/directive/loading.js"></script>
     </body>
 </html>
