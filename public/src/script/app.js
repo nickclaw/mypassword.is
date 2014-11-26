@@ -24,7 +24,7 @@ angular.module('app', ['ngRoute'])
         '$timeout',
         function($scope, $http, $timeout) {
             $scope.entries = [];
-            $scope.loading = false;
+            $scope.loading = true;
             $scope.done = false;
 
             $scope.$on('$routeChangeStart', function(next, current) {
@@ -54,7 +54,7 @@ angular.module('app', ['ngRoute'])
                         after: after
                     }
                 }).success(function(data) {
-                    $scope.done = data.length === 0;
+                    $scope.done = data.length < count;
                     $scope.entries.push.apply($scope.entries, data);
                 })
                 .finally(function() {
