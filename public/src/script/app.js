@@ -31,6 +31,8 @@ angular.module('app', ['ngRoute'])
                 $scope.entries = [];
                 $scope.loading = true;
                 $scope.done = false;
+
+                document.getElementById('container').scrollTop = 0;
             });
 
             /**
