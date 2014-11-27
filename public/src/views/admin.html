@@ -10,8 +10,33 @@
                 <div class="password">{{entry.password}}</div>
                 <div class="reason">{{entry.reason}}</div>
             </entry>
-            <div id="settings">
+            <div ng-if="entry" id="settings">
+                <div>
+                    <input ng-model="entry.password" />
+                </div>
+                <div>
+                    <textarea ng-model="entry.reason"></textarea>
+                </div>
+                <div>
+                    <label>Type:</label>
+                    <select ng-model="entry.view.type">
+                        <option value="basic">basic</option>
+                    </select>
+                </div>
 
+                <div>
+                    <label>Classes:</label>
+                    <select ng-model="entry.view.classes" multiple="multiple">
+                        <option value="n">north</option>
+                        <option value="s">south</option>
+                        <option value="w">west</option>
+                        <option value="e">east</option>
+                    </select>
+                </div>
+                <div>
+                    <button ng-click="save()">Save</button>
+                    <button ng-click="delete()">delete</button>
+                </div>
             </div>
         </div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js"></script>
