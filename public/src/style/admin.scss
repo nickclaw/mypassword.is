@@ -1,0 +1,12 @@
+@import "main";
+@import "entry";
+
+#settings {
+    background-color: blue;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
+    width: 100px;
+    height: 100px;
+}
