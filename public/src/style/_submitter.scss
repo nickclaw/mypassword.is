@@ -5,10 +5,34 @@ submitter {
 
     .field {
         margin-bottom: 10px;
+        padding-left: 5px;
+        border-left: solid 5px black;
+        border-bottom: solid 1px rgba(0,0,0,.5);
+        min-width: 300px;
+
+        &.valid {
+            border-left: solid 5px green;
+        }
+
+        &.invalid {
+            border-left: solid 5px red;
+
+            &:hover:after {
+                content: attr(error);
+                display: block;
+                position: absolute;
+                width: 100px;
+                left: -110px;
+                top: 0px;
+                color: red;
+                text-align: right;
+                font-size: .9rem;
+                font-family: monospace;
+            }
+        }
     }
 
     .expand {
-        overflow: hidden;
         height: auto;
         opacity: 1;
 
@@ -21,20 +45,11 @@ submitter {
 
     input[type=text], textarea {
 
-        width: 90%;
-        padding-left: 10px;
+        width: 100%;
         outline: none;
         border: none;
         background: none;
         resize: none;
-
-        &:not(:valid) {
-            border-left: solid 5px red !important;
-        }
-
-        border-left: solid 5px black;
-        border-bottom: solid 1px rgba(0,0,0,.5);
-        padding-left: 5px;
     }
 
     input[type=text] {
@@ -44,15 +59,9 @@ submitter {
 
     textarea {
         font-family: sans-serif;
-        min-width: 300px;
         height: 150px;
-        max-width: 600px;
         font-size: 1rem;
         line-height: 140%;
-    }
-
-    .buttons {
-        width: 90%;
     }
 
     input[type=file] {
@@ -65,16 +74,18 @@ submitter {
         outline: none;
         font-size: 1.2rem;
         padding: 2px 0px;
-        padding-left: 5px;
-        border-left: solid 5px black;
-        border-bottom: solid 1px rgb(100,100,100);
         text-align: left;
         cursor: pointer;
         color: rgb(100,100,100);
 
+
+        &:not(:first-child) {
+            padding-left: 5px;
+            border-left: solid 5px black;
+        }
+
         &:hover {
             color: black;
-            border-bottom: solid 1px black;
         }
     }
 }
