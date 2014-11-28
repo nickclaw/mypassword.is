@@ -7,23 +7,32 @@
         <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
         <link href="/static/style/index.css" rel="stylesheet" type="text/css" />
     </head>
-    <body>
-        <div scrollbottom="loadEntries(5)" disabled="loading || done" id="container">
+    <body box>
+        <div id="container"
+            box strict
+            scrollbottom="loadEntries(5)"
+            disabled="loading || done" >
+
             <nav id="nav">
                 <a ng-href="/">home</a>
                 <a ng-href="/submit">submit</a>
                 <a ng-href="/faq">faq</a>
                 <a ng-href="/terms">legal</a>
             </nav>
-            <header ng-view class="page">
+
+            <!-- pages go in here -->
+            <header ng-view >
 
             </header>
 
-            <entry ng-repeat="entry in entries" entry="entry"></entry>
+            <div ng-repeat-start="entry in entries" ></div>
+                <entry ng-if="entry" box direction="vertical" entry="entry"></entry>
+                <submitter ng-if="!entry" box direction="vertical"></submitter>
+            <div ng-repeat-end></div>
 
-            <loading ng-if="!done"></loading>
-            <footer ng-if="done">
 
+            <footer box>
+                <loading ng-if="!done"></loading>
             </footer>
         </div>
 

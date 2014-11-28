@@ -1,0 +1,25 @@
+[box] {
+    display: block;
+    width: 100%;
+    min-height: 100%;
+
+    &[strict] {
+        height: 100%;
+    }
+}
+
+[box=half] {
+    min-height: 50%;
+
+    &[strict] {
+        height: 50%;
+    }
+}
+
+[box=quarter] {
+    min-height: 25%;
+
+    &[strict] {
+        height: 25%;
+    }
+}

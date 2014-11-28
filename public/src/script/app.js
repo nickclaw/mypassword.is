@@ -13,13 +13,19 @@ angular.module('app', ['ngRoute'])
                     controller: 'HomeController'
                 })
                 .when('/entry/:id', {
-                    template: '<entry ng-if="entry" entry="entry"></entry>',
+                    template: '<entry ng-if="entry" box direction="vertical" entry="entry"></entry>',
                     controller: 'EntryController'
                 })
                 .when('/submit', {
-                    template: '<submitter redirect="true"></submitter>',
+                    template: '<submitter box direction="vertical" redirect="true"></submitter>',
                     controller: 'SubmitController'
                 })
+                .otherwise({
+                    template: '/static/template/404.html',
+                    controller: ['$scope', function($scope) {
+                        $scope.loadEntries(2);
+                    }]
+                });
         }
     ])
     .run([
@@ -38,6 +44,8 @@ angular.module('app', ['ngRoute'])
 
                 document.getElementById('container').scrollTop = 0;
             });
+
+            $scope.$on('$routeChange')
 
             /**
              *

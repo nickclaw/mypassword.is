@@ -9,7 +9,6 @@ angular.module('app').directive('entry', function() {
             elem.addClass($scope.entry.view.type);
             elem.addClass($scope.entry.view.classes.join(' '));
             elem.attr('id', $scope.entry._id);
-            console.log($scope.entry);
         }
     }
 });

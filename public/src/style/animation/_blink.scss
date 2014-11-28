@@ -1,0 +1,17 @@
+.blink {
+    display: inline-block;
+
+    &:after {
+        content: "_";
+        position: relative;
+        display: inline;
+        -webkit-animation: blink 1s linear infinite;
+    }
+}
+
+@-webkit-keyframes blink {
+    0% {opacity: 0;}
+    45% {opacity: 0;}
+    55% {opacity: 1;}
+    100% {opacity: 1;}
+}
