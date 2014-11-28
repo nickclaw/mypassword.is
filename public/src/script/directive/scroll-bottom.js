@@ -11,8 +11,6 @@ angular.module('app').directive('scrollbottom', function() {
                     outerHeight = this.offsetHeight,
                     offsetTop = this.scrollTop;
 
-                console.log($scope.disabled());
-
                 if (innerHeight - outerHeight - offsetTop >= 100) return;
                 if ($scope.disabled()) return;
 

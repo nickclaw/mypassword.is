@@ -5,14 +5,15 @@ angular.module('app').directive('submitter', [
 
         return {
             restrict: 'E',
-            templateUrl: '/static/template/submit.html',
+            templateUrl: '/static/template/submitter.html',
             scope: {
                 redirect: '='
             },
             link: function($scope, elem, attr) {
                 $scope.entry = {
                     reason: "",
-                    password: ""
+                    password: "",
+                    image: ""
                 };
                 $scope.saved = false;
 

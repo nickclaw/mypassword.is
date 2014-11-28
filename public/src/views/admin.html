@@ -5,8 +5,8 @@
         <link href="/static/style/admin.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
-        <div id="container">
-            <entry class="{{entry.view.type}} {{entry.view.classes.join(' ')}}">
+        <div box strict id="container">
+            <entry direction="vertical" box class="{{entry.view.type}} {{entry.view.classes.join(' ')}}">
                 <div class="password">{{entry.password}}</div>
                 <div class="reason">{{entry.reason}}</div>
             </entry>

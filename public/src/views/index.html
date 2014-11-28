@@ -26,8 +26,8 @@
             </header>
 
             <div ng-repeat-start="entry in entries" ></div>
-                <entry ng-if="entry" box direction="vertical" entry="entry"></entry>
-                <submitter ng-if="!entry" box direction="vertical"></submitter>
+                <entry ng-if="entry._id" box direction="vertical" entry="entry"></entry>
+                <submitter ng-if="!entry._id" box direction="vertical"></submitter>
             <div ng-repeat-end></div>
 
 
@@ -44,5 +44,6 @@
         <script src="/static/script/directive/scroll-bottom.js"></script>
         <script src="/static/script/directive/loading.js"></script>
         <script src="/static/script/directive/submitter.js"></script>
+        <script src="/static/script/directive/fileread.js"></script>
     </body>
 </html>

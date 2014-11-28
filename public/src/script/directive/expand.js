@@ -1,7 +1,7 @@
 angular.module('app').directive('expand', function() {
     return {
         restrict: 'A',
-        template: '<div class="expand-ruler"><ng-transclude></ng-transclude></div>',
+        template: '<div class="expand-ruler" ng-transclude></div>',
         transclude: true,
         scope: {
             expand: '='

@@ -37,10 +37,18 @@ angular.module('app', ['ngRoute'])
             $scope.loading = true;
             $scope.done = false;
 
+            var lastId = undefined,
+                i = 1,
+                j = 0;
+
             $scope.$on('$routeChangeStart', function(next, current) {
                 $scope.entries = [];
                 $scope.loading = true;
                 $scope.done = false;
+
+                lastId = undefined;
+                i = 1;
+                j = 0;
 
                 document.getElementById('container').scrollTop = 0;
             });
@@ -55,12 +63,9 @@ angular.module('app', ['ngRoute'])
 
                 // get default values
                 count = count || 5;
-                if (!after) {
-                    if ($scope.entries.length) {
-                        after = $scope.entries[$scope.entries.length - 1]._id;
-                    }
-                }
+                after = after || lastId;
 
+                j++;
                 $scope.loading = true;
                 return $http.get('/api', {
                     params: {
@@ -70,11 +75,19 @@ angular.module('app', ['ngRoute'])
                 }).success(function(data) {
                     $scope.done = data.length < count;
                     $scope.entries.push.apply($scope.entries, data);
+                    lastId = data[data.length - 1]._id;
+
+                    if (j >= i) {
+                        i += j;
+                        j = 0;
+                        $scope.entries.push({});
+                    }
+
                 })
                 .finally(function() {
                     $timeout(function() {
                         $scope.loading = false;
-                    }, 200);
+                    }, 1000);
                 })
             };
         }
