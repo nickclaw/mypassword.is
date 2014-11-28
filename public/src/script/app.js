@@ -72,17 +72,7 @@ angular.module('app', ['ngRoute'])
         '$http',
         '$location',
         function($scope, $http, $location) {
-            $scope.loadEntries(3);
-            $scope.model = {
-                password: "",
-                reason: ""
-            };
-
-            $scope.create = function() {
-                $http.post('/api', $scope.model).then(function(result) {
-                    $location.path('/entry/' + result.data._id).search({new: true});
-                });
-            };
+            $scope.loadEntries(5);
         }
     ])
     .controller('EntryController', [

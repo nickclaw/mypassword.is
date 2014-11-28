@@ -25,7 +25,7 @@ html, body {
     &:after {
         content: "_";
         position: relative;
-        display: inline-block;
+        display: inline;
         -webkit-animation: blink 1s linear infinite;
     }
 }
