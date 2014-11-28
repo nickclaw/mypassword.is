@@ -8,6 +8,7 @@ angular.module('app').directive('expand', function() {
         },
         link: function($scope, elem, attr) {
             var ruler = elem.children()[0];
+            elem.addClass('expand');
 
             $scope.$watch('expand', setHeight);
             setHeight();

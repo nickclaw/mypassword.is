@@ -15,7 +15,11 @@ angular.module('app', ['ngRoute'])
                 .when('/entry/:id', {
                     template: '<entry ng-if="entry" entry="entry"></entry>',
                     controller: 'EntryController'
-                });
+                })
+                .when('/submit', {
+                    template: '<submitter redirect="true"></submitter>',
+                    controller: 'SubmitController'
+                })
         }
     ])
     .run([
@@ -86,4 +90,10 @@ angular.module('app', ['ngRoute'])
                 $scope.loadEntries(3, data.data._id);
             });
         }
-    ]);
+    ])
+    .controller('SubmitController', [
+        '$scope',
+        function($scope) {
+        }
+    ])
+;

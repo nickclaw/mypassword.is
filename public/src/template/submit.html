@@ -1,0 +1,12 @@
+<div class="edit" ng-if="!saved">
+    <div>
+        <input type="text" ng-model="entry.password" />
+    </div>
+    <div expand="entry.password">
+        <textarea ng-model="entry.reason"></textarea>
+    </div>
+    <div expand="entry.password && entry.reason">
+        <button ng-click="save()">submit</button>
+    </div>
+</div>
+<entry ng-if="saved" entry="entry"></entry>
