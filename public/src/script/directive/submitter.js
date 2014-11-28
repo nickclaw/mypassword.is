@@ -13,7 +13,7 @@ angular.module('app').directive('submitter', [
                 $scope.entry = {
                     reason: "",
                     password: "",
-                    image: ""
+                    image: null
                 };
                 $scope.saved = false;
 

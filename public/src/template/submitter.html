@@ -4,9 +4,10 @@
     <form name="form">
         <div class="field"
             error="Required."
-            ng-class="{invalid: !form.password.$valid, valid: $form.password.$valid}">
+            ng-class="{invalid: !form.password.$valid, valid: form.password.$valid}">
             <input type="text"
                 name="password"
+                ng-trim
                 ng-model="entry.password"
                 ng-required="true"
                 placeholder="your password"
@@ -14,22 +15,20 @@
         </div>
 
         <div class="field"
-            ng-class="{invalid: !form.reason.$valid, valid: $form.reason.$valid}"
+            ng-class="{invalid: !form.reason.$valid, valid: form.reason.$valid}"
             error="Too short."
             expand="entry.password">
             <textarea name="reason"
                 ng-model="entry.reason"
+                ng-trim
                 ng-required="true"
                 ng-minLength="50"
                 placeholder="your story"
             ></textarea>
         </div>
 
-        <div class="field" expand="entry.password && entry.reason">
-            <label>
-                <span box>background image</span>
-                <input fileread="entry.image" type="file" />
-            </label>
+        <div class="field" ng-class="{valid: entry.image}" expand="entry.password && entry.reason">
+            <upload endpoint="/api/image" ng-model="entry.image"></upload>
         </div>
 
         <div class="field" expand="entry.password && entry.reason">
