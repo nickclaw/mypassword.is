@@ -12,23 +12,38 @@ angular.module('app').directive('submitter', [
             link: function($scope, elem, attr) {
                 $scope.entry = {
                     reason: "",
-                    password: "",
-                    image: null
+                    password: ""
                 };
+
+                $scope.image = {
+                    image: undefined,
+                    error: "",
+                    ready: true
+                };
+
                 $scope.saved = false;
 
                 $scope.save = function() {
-                    $http.post('/api/entry', $scope.entry)
-                        .success(function(data) {
+                    $http.post('/api/entry', {
+                        password: $scope.entry.password,
+                        reason: $scope.entry.reason,
+                        image: $scope.image.image
+                    }).success(function(data) {
 
-                            if ($scope.redirect) {
-                                $location.path('/entry/' + data._id);
-                            } else {
-                                $scope.entry = data;
-                                $scope.saved = true;
-                            }
-                        });
+                        if ($scope.redirect) {
+                            $location.path('/entry/' + data._id);
+                        } else {
+                            $scope.entry = data;
+                            $scope.saved = true;
+                        }
+                    }).catch(function(err) {
+                        console.error(err);
+                    })
                 }
+
+                $scope.$watch('entry.image', function() {
+                    console.log(arguments);
+                });
             }
         }
     }

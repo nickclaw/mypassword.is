@@ -4,35 +4,53 @@ angular.module('app').directive('upload', [
 
         return {
             restrict: 'E',
-            template: '<label><span box>background image</span><input type="file" /></label>',
+            templateUrl: '/static/template/upload.html',
             replace: true,
             scope: {
                 ngModel: '=',
+                ngReady: '=',
+                ngError: '=',
                 endpoint: '@'
             },
 
             link: function($scope, elem, attr) {
+                $scope.text = 'upload image...';
+
+                elem.find('click').on('click', function(evt) {
+                    if (!$scope.ngReady) {
+                        evt.preventDefault();
+                    }
+                })
+
                 elem.find('input').on('change', function(evt) {
+
+                    $scope.text = 'uploading...';
+                    $scope.ngReady = false;
+                    $scope.ngError = "";
+                    $scope.ngModel = undefined;
+
+
                     if (!evt.target.files.length) {
-                        return apply('ngModel', null);
+                        $scope.text = 'upload image...';
+                        $scope.ngReady = true;
+                        return;
                     }
 
                     var fd = new FormData();
                     fd.append('file', evt.target.files[0]);
-                    
+
                     $http.post($scope.endpoint, fd, {
                         transformRequest: angular.identity,
                         headers: {'Content-Type': undefined}
                     }).success(function(data) {
-                        apply('ngModel', data._id);
+                        $scope.ngModel = data._id;
                     }).catch(function(err) {
-                        apply('ngModel', err);
+                        $scope.ngError = err.data.message;
+                    }).finally(function() {
+                        $scope.text = evt.target.files[0].name;
+                        $scope.ngReady = true;
                     });
                 });
-
-                function apply(key, val) {
-                    $scope[key] = val;
-                }
             }
         }
     }

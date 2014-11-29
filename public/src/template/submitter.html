@@ -27,8 +27,8 @@
             ></textarea>
         </div>
 
-        <div class="field" ng-class="{valid: entry.image}" expand="entry.password && entry.reason">
-            <upload endpoint="/api/image" ng-model="entry.image"></upload>
+        <div class="field" ng-class="{valid: image.image, invalid: image.error}" error="{{image.error}}" expand="entry.password && entry.reason">
+            <upload endpoint="/api/image" ng-error="image.error" ng-model="image.image" ng-ready="image.ready"></upload>
         </div>
 
         <div class="field" expand="entry.password && entry.reason">
