@@ -5,11 +5,12 @@ var fs = require('fs'),
     app = require('./lib/app'),
     config = require('./config');
 
+var uri = 'mongodb://' + config.mongo.endpoint + ':' + config.mongo.port + '/mypassword';
 async.parallel([
 
     // start mongoose connection
     function(next) {
-        mongoose.connect('mongodb://127.0.0.1/mypassword', function(err) {
+        mongoose.connect(uri, function(err) {
             if (!err) {
                 var db = mongoose.connection.db,
                     name = db.databaseName,
@@ -31,5 +32,6 @@ async.parallel([
         });
     }
 ], function(err) {
+    if (err) return console.log(err);
     console.log('√ successfully running');
 });
