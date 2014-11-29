@@ -6,10 +6,7 @@
     </head>
     <body>
         <div box strict id="container">
-            <entry direction="vertical" box class="{{entry.view.type}} {{entry.view.classes.join(' ')}}">
-                <div class="password">{{entry.password}}</div>
-                <div class="reason">{{entry.reason}}</div>
-            </entry>
+            <entry direction="vertical" box ng-if="entry" entry="entry"></entry>
             <div ng-if="entry" id="settings">
                 <div>
                     <input ng-model="entry.password" />
@@ -42,5 +39,6 @@
         </div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js"></script>
         <script src="/static/script/admin.js"></script>
+        <script src="/static/script/directive/entry.js"></script>
     </body>
 </html>
