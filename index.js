@@ -1,7 +1,9 @@
-var express = require('express'),
+var fs = require('fs'),
+    express = require('express'),
     mongoose = require('mongoose'),
     async = require('async'),
-    app = require('./lib/app');
+    app = require('./lib/app'),
+    config = require('./config');
 
 async.parallel([
 
@@ -21,9 +23,9 @@ async.parallel([
 
     // start server
     function(next) {
-        app.listen(8080, function(err) {
+        app.listen(config.port, function(err) {
             if (!err) {
-                console.log('√ server listening on port: ' + 8080);
+                console.log('√ server listening on port: ' + config.port);
             }
             next(err);
         });

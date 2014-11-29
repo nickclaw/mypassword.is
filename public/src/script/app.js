@@ -75,7 +75,7 @@ angular.module('app', ['ngRoute'])
                 }).success(function(data) {
                     $scope.done = data.length < count;
                     $scope.entries.push.apply($scope.entries, data);
-                    lastId = data[data.length - 1]._id;
+                    lastId = data.length ? data[data.length - 1]._id : undefined;
 
                     if (j >= i) {
                         i += j;
