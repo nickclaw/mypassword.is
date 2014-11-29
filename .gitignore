@@ -3,3 +3,4 @@ public/src/style/**/*.css
 public/lib/
 public/src/image/*
 tmp/*.jpg
+config.json

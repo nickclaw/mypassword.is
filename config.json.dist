@@ -1,0 +1,10 @@
+{
+    "port": 8080,
+    "mongo": {
+        "username": "",
+        "password": ""
+    },
+    "s3": {
+        "bucket": ""
+    }
+}
