@@ -21,7 +21,7 @@
             </nav>
 
             <!-- pages go in here -->
-            <header ng-view >
+            <header box direction="vertical" ng-if="!error" id="page" ng-view >
 
             </header>
 
@@ -30,12 +30,10 @@
                 <submitter ng-if="!entry._id" box direction="vertical"></submitter>
             <div ng-repeat-end></div>
 
-
             <footer box>
                 <loading ng-if="!done"></loading>
             </footer>
         </div>
-
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.js"></script>
         <script src="/static/script/app.js"></script>
@@ -46,6 +44,5 @@
         <script src="/static/script/directive/submitter.js"></script>
         <script src="/static/script/directive/fileread.js"></script>
         <script src="/static/script/directive/upload.js"></script>
-
     </body>
 </html>
