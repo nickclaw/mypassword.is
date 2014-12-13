@@ -6,6 +6,7 @@ angular.module('app').directive('submitter', [
         return {
             restrict: 'E',
             templateUrl: '/static/template/submitter.html',
+            replace: true,
             scope: {
                 redirect: '='
             },

@@ -2,6 +2,7 @@ angular.module('app').directive('entry', function() {
     return {
         restrict: 'E',
         templateUrl: '/static/template/entry.html',
+        replace: true,
         scope: {
             entry: '='
         },

@@ -2,6 +2,9 @@ angular.module('app').directive('upload', [
     '$http',
     function($http) {
 
+        var emptyText = 'upload image';
+        var uploadingText = 'uploading image...';
+
         return {
             restrict: 'E',
             templateUrl: '/static/template/upload.html',
@@ -14,7 +17,7 @@ angular.module('app').directive('upload', [
             },
 
             link: function($scope, elem, attr) {
-                $scope.text = 'upload image...';
+                $scope.text = emptyText;
 
                 elem.find('click').on('click', function(evt) {
                     if (!$scope.ngReady) {
@@ -31,7 +34,7 @@ angular.module('app').directive('upload', [
 
 
                     if (!evt.target.files.length) {
-                        $scope.text = 'upload image...';
+                        $scope.text = emptyText;
                         $scope.ngReady = true;
                         return;
                     }
