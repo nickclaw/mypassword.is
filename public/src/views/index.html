@@ -7,10 +7,10 @@
         <link href="/static/style/index.css" rel="stylesheet" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
     </head>
-    <body box>
+    <body box ng-controller="RootController">
         <div id="container"
             box strict
-            ng-controller="RootController">
+            scrollBottom="loadEntries(5)">
 
             <nav id="nav">
                 <a ng-href="/">home</a>
@@ -43,12 +43,10 @@
         <script src="/static/script/directive/scroll-bottom.js"></script>
         <script src="/static/script/directive/loading.js"></script>
         <script src="/static/script/directive/submitter.js"></script>
-        <script src="/static/script/directive/fileread.js"></script>
         <script src="/static/script/directive/upload.js"></script>
         <script src="/static/script/controller/RootController.js"></script>
         <script src="/static/script/controller/FooterController.js"></script>
         <script src="/static/script/controller/pages/HomeController.js"></script>
-        <script src="/static/script/controller/pages/SubmitController.js"></script>
         <script src="/static/script/controller/pages/EntryController.js"></script>
 
     </body>

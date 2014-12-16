@@ -30,8 +30,9 @@ angular.module('app').factory('Sections', [
                     manager.state.done = data.length < count;
                     data.forEach(handle.bind(null, 'entry'));
                     manager.sections.push.apply(manager.sections, data);
-
                     manager.sections.push(handle('form', {}));
+
+                    lastEntry = data[data.length - 1]._id;
                 })
                 .error(function() {
                     manager.state.done = true;
@@ -56,6 +57,7 @@ angular.module('app').factory('Sections', [
                 manager.sections.splice(0, manager.sections.length);
                 manager.state.done = false;
                 manager.state.failed = false;
+                lastEntry = undefined;
             }
         };
 

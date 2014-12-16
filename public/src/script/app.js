@@ -17,8 +17,7 @@ angular.module('app', ['ngRoute'])
                     controller: 'EntryController'
                 })
                 .when('/submit', {
-                    template: '<submitter box direction="vertical" redirect="true"></submitter>',
-                    controller: 'SubmitController'
+                    template: '<submitter box direction="vertical" redirect="true"></submitter>'
                 })
                 .when('/404', {
                     template: '/static/template/error.html',

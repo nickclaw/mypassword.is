@@ -1,44 +1,40 @@
-<div class="submitter" box>
-    <div box direction="vertical" class="edit" ng-if="!saved">
+<div class="submitter" box direction="vertical">
+    <h2>Add your password?</h2>
+    <form name="form">
+        <div class="field"
+            error="Required."
+            ng-class="{invalid: !form.password.$valid, valid: form.password.$valid}">
+            <input type="text"
+                name="password"
+                ng-trim
+                ng-model="entry.password"
+                ng-required="true"
+                placeholder="your password"
+            />
+        </div>
 
-        <h2>Add your password?</h2>
-        <form name="form">
-            <div class="field"
-                error="Required."
-                ng-class="{invalid: !form.password.$valid, valid: form.password.$valid}">
-                <input type="text"
-                    name="password"
-                    ng-trim
-                    ng-model="entry.password"
-                    ng-required="true"
-                    placeholder="your password"
-                />
-            </div>
+        <div class="field"
+            ng-class="{invalid: !form.reason.$valid, valid: form.reason.$valid}"
+            error="Too short."
+            expand="entry.password">
+            <textarea name="reason"
+                ng-model="entry.reason"
+                ng-trim
+                ng-required="true"
+                ng-minLength="50"
+                placeholder="your story"
+            ></textarea>
+        </div>
 
-            <div class="field"
-                ng-class="{invalid: !form.reason.$valid, valid: form.reason.$valid}"
-                error="Too short."
-                expand="entry.password">
-                <textarea name="reason"
-                    ng-model="entry.reason"
-                    ng-trim
-                    ng-required="true"
-                    ng-minLength="50"
-                    placeholder="your story"
-                ></textarea>
-            </div>
+        <div class="field" ng-class="{valid: image.image, invalid: image.error}" error="{{image.error}}" expand="entry.password && entry.reason">
+            <upload endpoint="/api/image" ng-error="image.error" ng-model="image.image" ng-ready="image.ready"></upload>
+        </div>
 
-            <div class="field" ng-class="{valid: image.image, invalid: image.error}" error="{{image.error}}" expand="entry.password && entry.reason">
-                <upload endpoint="/api/image" ng-error="image.error" ng-model="image.image" ng-ready="image.ready"></upload>
+        <div class="field" expand="entry.password && entry.reason">
+            <div direction="horizontal" align="start">
+                <button flex="2" ng-click="save()">submit</button>
+                <button flex="1" ng-click="entry.password = ''; entry.reason = '';">clear</button>
             </div>
-
-            <div class="field" expand="entry.password && entry.reason">
-                <div direction="horizontal" align="start">
-                    <button flex="2" ng-click="save()">submit</button>
-                    <button flex="1" ng-click="entry.password = ''; entry.reason = '';">clear</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <entry ng-if="saved" entry="entry"></entry>
+        </div>
+    </form>
 </div>

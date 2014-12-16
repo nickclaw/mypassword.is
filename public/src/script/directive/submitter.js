@@ -10,7 +10,7 @@ angular.module('app').directive('submitter', [
             scope: {
                 redirect: '='
             },
-            link: function($scope, elem, attr) {
+            link: function($scope, elem, attr, controller) {
                 $scope.entry = {
                     reason: "",
                     password: ""
@@ -34,17 +34,13 @@ angular.module('app').directive('submitter', [
                         if ($scope.redirect) {
                             $location.path('/entry/' + data._id);
                         } else {
-                            $scope.entry = data;
-                            $scope.saved = true;
+                            Sections.replace(1, data);
                         }
                     }).catch(function(err) {
-                        console.error(err);
+
                     })
                 }
 
-                $scope.$watch('entry.image', function() {
-                    console.log(arguments);
-                });
             }
         }
     }
