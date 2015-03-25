@@ -62,13 +62,19 @@ nav a {
 }
 
 footer {
-    .end {
         padding: 50px 0px;
         width: 90%;
         padding-left: 10%;
 
-        line-height: 135%;
-        font-family: 'Lola', serif;
         opacity: .8;
+
+    p {
+        font-family: 'Lola', serif;
+        font-size: 2.5rem;
+    }
+
+    span {
+        font-family: monospace;
+        font-size: 2.5rem;
     }
 }
