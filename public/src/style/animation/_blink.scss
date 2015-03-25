@@ -3,8 +3,9 @@
 
     &:after {
         content: "_";
-        position: relative;
-        display: inline;
+        position: absolute;
+        font-size: 85%;
+        bottom: 15%;
         -webkit-animation: blink 1s linear infinite;
     }
 }

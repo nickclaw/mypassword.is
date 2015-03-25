@@ -5,8 +5,7 @@ var nconf = require('nconf'),
 
 require('babel/register')({
     extensions: ['.jsx'],
-    experimental: true,
-    ignore: ""
+    experimental: true
 });
 
 //

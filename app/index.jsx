@@ -9,8 +9,8 @@ var routes = require('./routes/routes.jsx');
 // otherwise expose middleware for server side rendering
 if (typeof window !== 'undefined') {
 
-    Router.run(routes, Router.HistoryLocation, (Handler) => {
-        React.render(<Handler user={window.__user}/>, document.body);
+    Router.run(routes, Router.HistoryLocation, (Handler, state) => {
+        React.render(<Handler routerState={state}/>, document.body);
     });
 
 } else {
@@ -26,8 +26,7 @@ if (typeof window !== 'undefined') {
     module.exports = (req, res) => {
         Router.run(routes, req.url, (Handler, state) => {
             res.render(__dirname + '/template.ejs', {
-                content: React.renderToString(<Handler user={req.user}/>),
-                user: req.user ? JSON.stringify(req.user) : 'null'
+                content: React.renderToString(<Handler routerState={state}/>)
             });
         });
     };

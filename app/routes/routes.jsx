@@ -1,11 +1,26 @@
 var React = require('react'),
-    Router = require('react-router');
+    Router = require('react-router'),
+    request = require('superagent'),
+    Entry = require('../component/Entry.jsx');
 
 var {Route, DefaultRoute, NotFoundRoute, RouteHandler} = Router;
 
 class Main extends React.Component {
 
+    constructor() {
+        super();
+        this.state = null;
+    }
+
     render() {
+        if (!this.state) {
+            this.state = this.context.router.getCurrentParams();
+        }
+
+        var sections = this.state.entries.map(value => (
+            <Entry entry={value}></Entry>
+        ));
+
         return (
             <div id="container" className="box strict">
 
@@ -21,7 +36,7 @@ class Main extends React.Component {
                 </header>
 
                 <main>
-
+                    {sections}
                 </main>
 
                 <footer className="box half direction vertical">
@@ -31,6 +46,18 @@ class Main extends React.Component {
         );
     }
 }
+
+Main.contextTypes = {
+    router: React.PropTypes.func
+};
+
+Main.willTransitionTo = function(transition, params, query, callback) {
+    request.get('/api/', function(err, data) {
+        if (err) return callback(err);
+        params.entries = data.body;
+        callback();
+    });
+};
 
 module.exports = (
     <Route path="/" name="index" handler={Main}>
