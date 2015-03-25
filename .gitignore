@@ -1,6 +1,7 @@
 node_modules
-public/src/style/**/*.css
-public/lib/
-public/src/image/*
-tmp/*.jpg
-config.json
+config/*.json
+!config/default.json
+public/build
+public/src/**/*.css
+tmp
+*.log

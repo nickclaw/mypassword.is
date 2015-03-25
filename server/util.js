@@ -1,10 +1,6 @@
 var multi = require('multiparty'),
-    aws = require('aws-sdk'),
-    config = require('../config'),
     fs = require('fs'),
     error = require('error-factory');
-
-var s3 = new aws.S3();
 
 var ValidationError = error('ValidationError', {
     message: undefined,
@@ -66,13 +62,7 @@ module.exports = {
     //
 
     uploadPicture: function(name, buffer, callback) {
-        s3.putObject({
-            Bucket: config.s3.bucket,
-            Key: "pictures/" + name,
-            ContentType: "image/jpg",
-            CacheControl: "max-age=31536000",
-            Body: buffer
-        }, callback);
+
     },
 
     //

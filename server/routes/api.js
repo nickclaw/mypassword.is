@@ -2,10 +2,8 @@ var router = require('express').Router(),
     util = require('../util.js'),
     Entry = require('../models/entry'),
     Image = require('../models/image'),
-    config = require('../../config'),
     async = require('async'),
     multi = require('multiparty'),
-    aws = require('aws-sdk'),
     gm = require('gm');
 
 router.use(function(req, res, next) {

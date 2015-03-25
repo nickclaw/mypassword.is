@@ -1,37 +1,45 @@
-var fs = require('fs'),
-    express = require('express'),
-    mongoose = require('mongoose'),
-    async = require('async'),
-    app = require('./lib/app'),
-    config = require('./config');
+var cluster = require('cluster'),
+    winston = require('winston');
 
-var uri = 'mongodb://' + config.mongo.endpoint + ':' + config.mongo.port + '/mypassword';
-async.parallel([
+// add globals: Log, C, Promise
+require('./config/config.js');
 
-    // start mongoose connection
-    function(next) {
-        mongoose.connect(uri, function(err) {
-            if (!err) {
-                var db = mongoose.connection.db,
-                    name = db.databaseName,
-                    loc = db.serverConfig.name;
+if (cluster.isMaster) {
+    var numClusters = Math.min(require('os').cpus().length, C.APP.MAX_CPUS);
 
-                console.log('√ mongoose connected to: ' + name + '@' + loc);
-            }
-            next(err);
-        });
-    },
+    Log.info("Starting up master instance.");
+    Log.info("Spinning up %s clusters.", numClusters);
 
-    // start server
-    function(next) {
-        app.listen(config.port, function(err) {
-            if (!err) {
-                console.log('√ server listening on port: ' + config.port);
-            }
-            next(err);
-        });
+    // spin up as many instances as possible
+    for (var i = 0; i < numClusters; i++) {
+        cluster.fork();
     }
-], function(err) {
-    if (err) return console.log(err);
-    console.log('√ successfully running');
+
+    // log when a worker exits
+    cluster.on('exit', function(worker) {
+        if (worker.suicide) {
+            Log.info("Worker %s exited.", worker.id)
+        } else {
+            Log.error("Worker %s died.", worker.id);
+        }
+
+        if (C.APP.REVIVE) cluster.fork();
+    });
+
+} else {
+
+    // append worker id before text so we can filter by worker
+    Log.log = function() {
+        arguments[1] = '[' + cluster.worker.id + '] ' + arguments[1];
+        winston.Logger.prototype.log.apply(this, arguments);
+    };
+
+    Log.info('Worker online');
+
+    require('./server/server');
+}
+
+// log any uncaught expections
+process.on('uncaughtException', function(err) {
+    Log.error("Uncaught Exception: \n", err.stack);
 });
