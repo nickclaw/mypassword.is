@@ -3,7 +3,7 @@ var React = require('react'),
     Request = require('superagent').Request;
 
 // load routes
-var routes = require('./routes/index.jsx');
+var routes = require('./routes/routes.jsx');
 
 // autorender if on clientside
 // otherwise expose middleware for server side rendering

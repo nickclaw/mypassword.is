@@ -1,25 +1,27 @@
-[box] {
+.box {
     display: block;
     width: 100%;
     min-height: 100vh;
 
-    &[strict] {
+    &.strict {
         height: 100vh;
     }
-}
 
-[box=half] {
-    min-height: 50vh;
 
-    &[strict] {
-        height: 50vh;
+    &.half {
+        min-height: 50vh;
+
+        &.strict {
+            height: 50vh;
+        }
     }
-}
 
-[box=quarter] {
-    min-height: 25vh;
+    &.quarter {
+        min-height: 25vh;
 
-    &[strict] {
-        height: 25vh;
+        &.strict {
+            height: 25vh;
+        }
     }
+
 }

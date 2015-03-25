@@ -7,33 +7,8 @@
         <link href="/static/style/index.css" rel="stylesheet" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
     </head>
-    <body box ng-controller="RootController">
-        <div id="container"
-            box strict
-            scrollBottom="loadEntries(5)">
-
-            <nav id="nav">
-                <a ng-href="/">home</a>
-                <a ng-href="/submit">submit</a>
-                <a ng-href="/faq">faq</a>
-                <a ng-href="/terms">legal</a>
-            </nav>
-
-            <header ng-view>
-
-            </header>
-
-            <main>
-                <section ng-repeat="section in sections" ng-switch="section.$type">
-                    <entry entry="section" ng-switch-when="entry"></entry>
-                    <submitter ng-switch-when="form"></entry>
-                </section>
-            </main>
-
-            <footer box="half" direction="vertical" ng-controller="FooterController">
-                    <p>You've reached - <span>the_end</span></p>
-            </footer>
-        </div>
-        <script src="/static/script/app.js"></script>
+    <body box>
+        <%- content %>
     </body>
+    <script src="/static/script/app.js"></script>
 </html>
