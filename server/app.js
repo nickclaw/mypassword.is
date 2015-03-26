@@ -13,16 +13,6 @@ var app = module.exports = express();
 app.use(compress());
 app.use(bodyParser.json());
 
-// javascript
-app.use('/static/script/app.js', browserify('./app/index.jsx', {
-    transform: [
-        to5ify.configure({
-            experimental: true
-        })
-    ],
-    precompile: true,
-    cache: true
-}));
 
 // static routes
 app.use(favicon(__dirname + '/../public/build/image/favicon.ico'));
@@ -32,8 +22,7 @@ app.use('/static/style', sass({
     outputStyle: 'compressed',
     force: true
 }));
-app.use('/static/template', serve(__dirname + '/../public/src/template'));
-app.use('/static/image', serve(__dirname + '/../public/src/image'));
+app.use('/static/', serve(__dirname + '/../public/src/'));
 
 // dynamic routes
 app.use('/api', require('./routes/api'));

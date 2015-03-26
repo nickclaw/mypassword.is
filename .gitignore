@@ -1,7 +1,10 @@
 node_modules
-config/*.json
-!config/default.json
-public/build
-public/src/**/*.css
 tmp
 *.log
+
+config/*.json
+!config/default.json
+
+public/build
+public/src/**/*.css
+public/src/**/*.js
