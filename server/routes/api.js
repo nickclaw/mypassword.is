@@ -27,6 +27,18 @@ router.param('entry', function(req, res, next, id) {
  */
 router.get('/',
     function(req, res, next) {
+        if (req.query.after) {
+            Entry.findById(req.query.after, 'added', function(err, entry) {
+                if (err) return next(err);
+                if (!entry) return res.sendStatus(404);
+                req.after = entry.added;
+                next();
+            });
+        } else {
+            next();
+        }
+    },
+    function(req, res, next) {
         var query = Entry.find({
                 added: {$ne: null}
             })
@@ -38,10 +50,11 @@ router.get('/',
         }
 
         query.exec(function(err, entry) {
-                if (err) return next(err);
-                res.send(entry);
-            });
-    });
+            if (err) return next(err);
+            res.send(entry);
+        });
+    }
+);
 
 /**
  * Create an entry

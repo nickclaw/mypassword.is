@@ -1,28 +1,56 @@
 var React = require('react'),
+    InfiniteScroll = require('react-infinite-scroll')(React),
     Router = require('react-router'),
-    request = require('superagent'),
-    Entry = require('../component/Entry.jsx');
+    Entry = require('../component/entry.jsx'),
+    request = require('superagent');
 
 var {Route, DefaultRoute, NotFoundRoute, RouteHandler} = Router;
 
-class Main extends React.Component {
+var Main = React.createClass({
 
-    constructor() {
-        super();
-        this.state = null;
-    }
+    getInitialState() {
+        return {
+            entries: null,
+            after: null,
+            error: null,
+            canLoad: true
+        };
+    },
 
-    render() {
-        if (!this.state) {
-            this.state = this.context.router.getCurrentParams();
+    contextTypes: {
+        router: React.PropTypes.func
+    },
+
+    statics: {
+        willTransitionTo(transition, params, query, callback) {
+            var after = params.password || null;
+
+            request.get(`/api/?after=${after}`, function(err, data) {
+                if (err) return callback(err);
+                params.entries = data.body || [];
+                params.after = after;
+                callback();
+            })
+        }
+    },
+
+    render: function() {
+        if (!this.state.entries) {
+            var params = this.context.router.getCurrentParams();
+            this.state.entries = params.entries;
+            this.state.after = params.after;
         }
 
-        var sections = this.state.entries.map(value => (
-            <Entry entry={value}></Entry>
+        var entries = this.state.entries.map((entry, i) => (
+            <Entry entry={entry} key={i}></Entry>
         ));
 
         return (
-            <div id="container" className="box strict">
+            <InfiniteScroll id="container"
+                className="box strict"
+                loadMore={this.loadMore}
+                hasMore={this.state.canLoad}
+                threshold={750} >
 
                 <nav id="nav">
                     <a href="/">home</a>
@@ -36,33 +64,37 @@ class Main extends React.Component {
                 </header>
 
                 <main>
-                    {sections}
+                    {entries}
                 </main>
 
                 <footer className="box half direction vertical">
                         <p>You've reached - <span>the_end</span></p>
                 </footer>
-            </div>
+            </InfiniteScroll>
         );
+    },
+
+    loadMore() {
+        this.setState({ canLoad: false });
+        request.get(`/api/?after=${this.state.after}`, (err, data) => {
+            if (err) {
+                this.setState({ error: err });
+                return;
+            }
+            this.setState({
+                entries: this.state.entries.concat(data.body),
+                after: this.state.entries[this.state.entries.length - 1]._id,
+                canLoad: !!data.body.length,
+                error: null
+            });
+        });
     }
-}
-
-Main.contextTypes = {
-    router: React.PropTypes.func
-};
-
-Main.willTransitionTo = function(transition, params, query, callback) {
-    request.get('/api/', function(err, data) {
-        if (err) return callback(err);
-        params.entries = data.body;
-        callback();
-    });
-};
+});
 
 module.exports = (
     <Route path="/" name="index" handler={Main}>
         <DefaultRoute handler={require('./index.jsx')} />
-        <Route path="/p/:id" name="password" handler={require('./password.jsx')} />
+        <Route path="/p/:password" name="password" handler={require('./password.jsx')} />
         <NotFoundRoute handler={require('./not-found.jsx')} />
     </Route>
 )
