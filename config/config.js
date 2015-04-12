@@ -4,8 +4,7 @@ var nconf = require('nconf'),
     winston = require('winston');
 
 require('babel/register')({
-    extensions: ['.jsx'],
-    experimental: true
+    extensions: ['.jsx']
 });
 
 //

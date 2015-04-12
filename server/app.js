@@ -2,7 +2,6 @@ var express = require('express'),
     serve = require('serve-static'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
-    favicon = require('static-favicon'),
     sass = require('node-sass-middleware'),
     browserify = require('browserify-middleware'),
     to5ify = require('6to5ify');
@@ -15,7 +14,6 @@ app.use(bodyParser.json());
 
 
 // static routes
-app.use(favicon(__dirname + '/../public/build/image/favicon.ico'));
 app.use('/static/style', sass({
     src: __dirname + '/../public/src/style',
     dest:__dirname + '/../public/src/style',

@@ -25,10 +25,11 @@ var Main = React.createClass({
         willTransitionTo(transition, params, query, callback) {
             var after = params.password || null;
 
-            request.get(`/api/?after=${after}`, function(err, data) {
+            var url = after ? `/api/?after=${after}` : '/api/';
+            request.get(url, function(err, data) {
                 if (err) return callback(err);
                 params.entries = data.body || [];
-                params.after = after;
+                params.after = params.entries[params.entries.length - 1]._id;
                 callback();
             })
         }
@@ -41,8 +42,8 @@ var Main = React.createClass({
             this.state.after = params.after;
         }
 
-        var entries = this.state.entries.map((entry, i) => (
-            <Entry entry={entry} key={i}></Entry>
+        var entries = this.state.entries.map(entry => (
+            <Entry entry={entry} key={entry._id}></Entry>
         ));
 
         return (
@@ -68,26 +69,34 @@ var Main = React.createClass({
                 </main>
 
                 <footer className="box half direction vertical">
-                        <p>You've reached - <span>the_end</span></p>
+                    <p>You've reached - <span>the_end</span></p>
                 </footer>
             </InfiniteScroll>
         );
     },
 
     loadMore() {
-        this.setState({ canLoad: false });
-        request.get(`/api/?after=${this.state.after}`, (err, data) => {
+        this.setState({
+            canLoad: false
+        });
+
+        var url = this.state.after ? `/api/?after=${this.state.after}` : '/api/';
+        request.get(url, function(err, data) {
             if (err) {
-                this.setState({ error: err });
-                return;
+                return this.setState({
+                    error: err
+                });
             }
+
+            var length = data.body.length,
+                last = data.body[length - 1];
+
             this.setState({
                 entries: this.state.entries.concat(data.body),
-                after: this.state.entries[this.state.entries.length - 1]._id,
-                canLoad: !!data.body.length,
-                error: null
+                after: last ? last._id : null,
+                canLoad: length > 0
             });
-        });
+        }.bind(this));
     }
 });
 
