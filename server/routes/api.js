@@ -40,14 +40,13 @@ router.get('/',
     },
     function(req, res, next) {
         var query = Entry.find({
-                added: {$ne: null}
+                added: {
+                    $ne: null,
+                    $lt: req.after || Date.now()
+                }
             })
             .sort({added: 'desc'})
-            .limit(req.query.limit || 10);
-
-        if (req.after) {
-            query.lt('added', req.after || Date.now());
-        }
+            .limit(req.query.limit || 3);
 
         query.exec(function(err, entry) {
             if (err) return next(err);

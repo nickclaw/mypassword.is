@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react'),
+    {Link} = require('react-router');
 
 module.exports = class Entry extends React.Component {
 
@@ -16,8 +17,8 @@ module.exports = class Entry extends React.Component {
                 <div className="password">{entry.password}</div>
                 <div className="reason">{entry.reason}</div>
                 <ul className="info">
-                    <li><a href={`/p/${entry._id}`}>link</a></li>
-                    <li><a href="#">share</a></li>
+                    <li><Link to={`/p/${entry._id}`}>link</Link></li>
+                    <li><a to="#">share</a></li>
                 </ul>
             </div>
         );

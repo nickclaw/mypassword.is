@@ -25,11 +25,13 @@ var Main = React.createClass({
         willTransitionTo(transition, params, query, callback) {
             var after = params.password || null;
 
-            var url = after ? `/api/?after=${after}` : '/api/';
+            var url = after ? `/api?after=${after}` : '/api';
             request.get(url, function(err, data) {
                 if (err) return callback(err);
-                params.entries = data.body || [];
-                params.after = params.entries[params.entries.length - 1]._id;
+                params.entries = data.body;
+
+                var length = params.entries.length;
+                params.after = length ? params.entries[length - 1]._id : null;
                 callback();
             })
         }
