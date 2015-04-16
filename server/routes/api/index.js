@@ -1,22 +1,32 @@
-var router = require('express').Router();
+import {Router} from 'express';
+import entryRouter from './entry-router'
+
+let router = Router();
+
+export default router;
 
 router
     //
-    // put subroutes here
+    // subroutes
     //
+
+    .use('/entry', entryRouter)
 
     //
     // Catch api errors
     //
-    .use(function(req, res, next) {
+    .use((req, res, next) => {
         Log.silly("Route not found %s %s", req.method, req.originalUrl);
-        res.send(404, {/* payload */});
+        res.send(501);
     })
-    .use(function(err, req, res, next) {
-        Log.error("Uncaught error %s %s", req.method, req.originalUrl);
+    .use((err, req, res, next) => {
+        if ( err instanceof ValidationError ) return res.sendStatus(400);
+        if ( err instanceof NotAllowedError ) return res.sendStatus(401)
+        if ( err instanceof NotFoundError ) return res.sendStatus(404);
+
         Log.error(err);
 
-        res.send(500, {/* payload */});
-    });
+        res.sendStatus(500);
+    })
 
 module.exports = router;
