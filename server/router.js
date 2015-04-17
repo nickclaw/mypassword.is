@@ -20,7 +20,6 @@ app.use( compress({ threshold: 1024 }) );
 app.get('/static/app.js', browserify({
     entry: require.resolve('./app/app.jsx'),
     debug: true,
-    watch: true,
     transforms: [
         ['babelify', {stage: 1}]
     ]

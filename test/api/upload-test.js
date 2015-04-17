@@ -4,7 +4,7 @@ import rimraf from "rimraf";
 
 let dest = join(__dirname, '../..', C.APP.UPLOAD_DIR);
 
-describe.only('the upload endpoint', () => {
+describe('the upload endpoint', () => {
 
 
     before(function() {

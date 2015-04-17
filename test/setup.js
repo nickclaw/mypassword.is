@@ -7,8 +7,6 @@ chai.should();
 chai.use( require('chai-as-promised') );
 chai.use( require('chai-shallow-deep-equal') );
 
-var URL = C.SERVER.HOST + ":" + C.SERVER.PORT;
-
 global.expect = chai.expect;
 global.request = require('superagent');
 global._ = require('lodash');
@@ -17,7 +15,7 @@ global.r = {
     get: function get(url) {
         return new Promise(function(res, rej) {
             request
-                .get(URL + url)
+                .get(url)
                 .end(handle(res, rej));
         });
     },
@@ -25,7 +23,7 @@ global.r = {
     post: function post(url, data) {
         return new Promise(function(res, rej) {
             request
-                .post(URL + url)
+                .post(url)
                 .send(data)
                 .end(handle(res, rej));
         });
@@ -34,7 +32,7 @@ global.r = {
     del: function del(url) {
         return new Promise(function(res, rej) {
             request
-                .del(URL + url)
+                .del(url)
                 .end(handle(res, rej));
         });
     },
