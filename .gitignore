@@ -16,3 +16,6 @@ config/*.json
 # generated
 *.log
 .sass-cache
+
+# temp
+public/src/upload

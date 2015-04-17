@@ -4,10 +4,11 @@ import {Component} from 'react';
 export default class Entry extends Component {
 
     render() {
-        let entry = this.props.entry;
+        let entry = this.props.entry,
+            background = entry.view.background;
 
         // apply entry.view
-        let style = { backgroundImage: `url(${entry.view.background})` },
+        let style = background ? { backgroundImage: `url(${background})` } : {},
             classes = "entry box direction vertical";
         classes += " " + entry.view.type + " " + entry.view.classes.join(" ");
 
