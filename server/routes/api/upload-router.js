@@ -3,17 +3,14 @@ import {FieldValidationError, GroupValidationError} from 'vlad';
 import {Form} from 'multiparty';
 import fs from 'fs';
 import path from 'path';
+import gm from 'gm';
 
-let router = Router(),
-    form = new Form({
-        autoFiles: true
-    });
+let router = Router();
 
 export default router;
 
 router
-
-    .post('/upload',
+    .post('/image',
         getFile,
         identifyImage,
         validateImage,
@@ -27,6 +24,10 @@ router
 //
 
 function getFile(req, res, next) {
+    let form = new Form({
+        autoFiles: true
+    });
+
     form.parse(req, function(err, fields, files) {
 
         // parse form for file data
@@ -54,7 +55,7 @@ function identifyImage(req, res, next) {
 }
 
 function validateImage(req, res, next) {
-    let data = req.file.data;
+    let data = req.file.info;
 
     if (data.format !== 'PNG' && data.format !== 'JPEG') {
         return next(vlad.FieldValidationError("Invalid file type."));
@@ -94,13 +95,15 @@ function saveImage(req, res, next) {
     delete req.file.info;
 
     let name = Date.now() + '.jpg',
-        dest = path.join(ROOT, C.APP.RES_DIR, 'upload', name);
+        dest = path.join(ROOT, C.APP.UPLOAD_DIR, name);
+
+    req.file.name = name;
 
     fs.writeFile(dest, req.file.buffer, next);
 }
 
 function sendResponse(req, res, next) {
-    res.send({ image: path.join('/static/upload/', name) });
+    res.send({ image: path.join('/static/upload/', req.file.name) });
 }
 
 function createError(message) {

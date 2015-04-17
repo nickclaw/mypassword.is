@@ -1,5 +1,6 @@
 import {Router} from 'express';
-import entryRouter from './entry-router'
+import entryRouter from './entry-router';
+import uploadRouter from './upload-router';
 
 let router = Router();
 
@@ -10,4 +11,5 @@ router
     // subroutes
     //
 
-    .use('/entry', entryRouter);
+    .use('/entry', entryRouter)
+    .use('/upload', uploadRouter);

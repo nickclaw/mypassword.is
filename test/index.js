@@ -14,6 +14,7 @@ describe('mypassword.is website', function() {
 
     describe('api', function() {
         require('./api/entry-test');
+        require('./api/upload-test');
     });
 
 });

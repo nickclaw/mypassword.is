@@ -3,7 +3,8 @@
         "MAX_CPUS": 4,
         "REVIVE": true,
         "RES_DIR": "public/src",
-        "LIB_DIR": "public/lib"
+        "LIB_DIR": "public/lib",
+        "UPLOAD_DIR": "public/src/upload"
     },
 
     "SERVER": {
