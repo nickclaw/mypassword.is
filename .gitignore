@@ -1,11 +1,18 @@
+
+# dependencies
 node_modules
+
+# build
 public/build
 public/lib
-public/src/style/*.css
+*.css
+*.map
 
+# config
 config/*.json
 !config/default.json
 !config/travis.json
 
+# generated
 *.log
 .sass-cache
