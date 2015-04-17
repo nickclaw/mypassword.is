@@ -1,12 +1,13 @@
+import React from 'react';
 import {Component} from 'react';
 
 export default class Entry extends Component {
 
     render() {
-        var entry = this.props.entry;
+        let entry = this.props.entry;
 
         // apply entry.view
-        var style = { backgroundImage: `url(/static/image/${entry.view.background})` },
+        let style = { backgroundImage: `url(/static/image/${entry.view.background})` },
             classes = "entry box direction vertical";
         classes += " " + entry.view.type + " " + entry.view.classes.join(" ");
 
@@ -16,7 +17,7 @@ export default class Entry extends Component {
                 <div className="password">{entry.password}</div>
                 <div className="reason">{entry.reason}</div>
                 <ul className="info">
-                    <li><a href={`/p/${entry._id}`}>link</a></li>
+                    <li><a href={`/p/${entry.id}`}>link</a></li>
                     <li><a href="#">share</a></li>
                 </ul>
             </div>

@@ -3,13 +3,29 @@ import {Component, render} from 'react';
 import Router from 'react-router';
 import {run, Route, DefaultRoute, NotFoundRoute, RouteHandler} from 'react-router';
 import ReactAsync from 'react-async';
+import {decorate as Mixin} from 'react-mixin';
+import req from 'superagent';
+import Entry from './component/entry.jsx';
 
 let InfiniteScroll = require('react-infinite-scroll')(React);
 require('react/lib/ReactMount').allowFullPageRender = true;
 let isClient = typeof window !== 'undefined';
 
+@Mixin(ReactAsync.Mixin)
 class App extends Component {
+
+    getInitialStateAsync(next) {
+        req.get('/api/entry', function(err, data) {
+            if (err) return next(err);
+            next(null, {
+                entries: data.body
+            });
+        });
+    }
+
     render() {
+        let entries = this.state.entries.map((e) => <Entry entry={e} key={e.id} />);
+
         return (
             <html>
                 <head>
@@ -30,9 +46,7 @@ class App extends Component {
                         </header>
 
                         <main>
-                            <main>
-
-                            </main>
+                            {entries}
                         </main>
 
                         <footer className="box half direction vertical">
