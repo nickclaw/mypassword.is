@@ -1,7 +1,8 @@
 var nconf = require('nconf'),
     path = require('path'),
     Promise = require('bluebird'),
-    winston = require('winston');
+    winston = require('winston'),
+    Request = require('superagent').Request;
 
 require('babel/register')({
     extensions: ['.js', '.jsx'],
@@ -59,3 +60,11 @@ if (C.LOGGING.FILE.ENABLED) {
 global.Log = new winston.Logger({
     transports: transports
 }).cli();
+
+// for server side rendering api calls won't work
+// unless we prepend all urls with the local address
+var oldFn = Request.prototype.request;
+Request.prototype.request = function() {
+    this.url = C.SERVER.HOST + ':' + C.SERVER.PORT + this.url;
+    return oldFn.apply(this, arguments);
+}
