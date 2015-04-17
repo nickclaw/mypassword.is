@@ -36,7 +36,7 @@ class App extends Component {
                         </main>
 
                         <footer className="box half direction vertical">
-                            <p>You've reached - <span>the_end</span></p>
+                            <p>You've reached - <span className="underscore">the</span><span className="blink">end</span></p>
                         </footer>
                     </InfiniteScroll>
                     <script src="/static/app.js" async></script>

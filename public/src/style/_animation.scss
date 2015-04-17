@@ -1,13 +1,20 @@
-.blink {
+.blink, .underscore{
     display: inline-block;
 
     &:after {
         content: "_";
         position: absolute;
-        font-size: 85%;
-        bottom: 15%;
-        animation: blink 1s linear infinite;
+        font-size: .85em;
+        bottom: .15em;
     }
+}
+
+.underscore {
+    padding-right: .5em;
+}
+
+.blink:after {
+    animation: blink 1s linear infinite;
 }
 
 @keyframes blink {
