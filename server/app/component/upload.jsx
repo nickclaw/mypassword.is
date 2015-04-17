@@ -1,5 +1,6 @@
 import React from 'react';
 import {Component} from 'react';
+import Expander from './expander';
 
 export default class Upload extends Component {
     render() {
@@ -11,25 +12,31 @@ export default class Upload extends Component {
                         <input type="text" placeholder="your password" />
                     </div>
 
-                    <div className="field">
-                        <textarea name="reason" placeholder="your story"></textarea>
-                    </div>
-
-                    <div className="field">
-                        <div className="direction horizontal">
-                            <label className="flex1" >
-                                <span>upload image</span>
-                                <input type="file" />
-                            </label>
+                    <Expander>
+                        <div className="field">
+                            <textarea name="reason" placeholder="your story"></textarea>
                         </div>
-                    </div>
+                    </Expander>
 
-                    <div className="field" expand="entry.password && entry.reason">
-                        <div className="direction horizontal align start">
-                            <button className="flex2">submit</button>
-                            <button className="flex1">clear</button>
+                    <Expander>
+                        <div className="field">
+                            <div className="direction horizontal">
+                                <label className="flex1" >
+                                    <span>upload image</span>
+                                    <input type="file" />
+                                </label>
+                            </div>
                         </div>
-                    </div>
+                    </Expander>
+
+                    <Expander>
+                        <div className="field" expand="entry.password && entry.reason">
+                            <div className="direction horizontal align start">
+                                <button className="flex2">submit</button>
+                                <button className="flex1">clear</button>
+                            </div>
+                        </div>
+                    </Expander>
                 </form>
             </div>
         );
