@@ -1,0 +1,28 @@
+nav {
+
+    &:before, &:after {
+        font-size: 150%;
+        line-height: 100%;
+        color: rgb(50,50,50);
+    }
+    &:before { content: "["; }
+    &:after { content: "]"; }
+
+    a {
+        text-decoration: none;
+        border-radius: 2px;
+
+        margin: 0 2px;
+        padding: 2px 3px;
+
+        transition: color .2s, background-color .2s;
+
+        color: rgb(50,50,50);
+        background-color: rgba(200,200,200, .2);
+
+        &:hover {
+            color: rgb(0,0,0);
+            background-color: rgba(200,200,200, .4);
+        }
+    }
+}

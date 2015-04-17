@@ -18,6 +18,13 @@ class App extends Component {
                 </head>
                 <body>
                     <InfiniteScroll>
+                        <nav id="nav">
+                            <a href="/">home</a>
+                            <a href="/submit">submit</a>
+                            <a href="/faq">faq</a>
+                            <a href="/terms">legal</a>
+                        </nav>
+
                         <header>
                             <RouteHandler />
                         </header>
