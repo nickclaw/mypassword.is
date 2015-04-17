@@ -12,11 +12,6 @@ router
     //
     // Handle errors
     //
-
-    .use((req, res, next) => {
-        Log.silly("Route not found %s %s", req.method, req.originalUrl);
-        res.send(501);
-    })
     .use((err, req, res, next) => {
         if ( err instanceof ValidationError ) return res.status(400).send(err.toJSON());
         if ( err instanceof NotAuthorizedError ) return res.sendStatus(401)
