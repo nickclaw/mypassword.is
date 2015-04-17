@@ -1,3 +1,6 @@
+import Entry from "../../server/models/Entry";
+import entries from "../fixtures/entries";
+
 var goodEntry = {
     password: "password",
     reason: "this is the reason"
@@ -8,6 +11,14 @@ var badEntry = {
 };
 
 describe('the entry endpoint', () => {
+
+    beforeEach(function() {
+        return Entry.create(entries);
+    });
+
+    afterEach(function() {
+        return Entry.remove({}).exec();
+    });
 
     describe('POST /api/entry - create', () => {
 
@@ -31,7 +42,32 @@ describe('the entry endpoint', () => {
         });
     });
 
-    describe('GET /api/entry - browse', () => {
+    describe('GET /api/entry?limit=10&after=:entry - browse', () => {
+
+        it('should retrieve the available entries', function() {
+            return r.get('/api/entry').should.be.fulfilled
+                .then((entries) => {
+                    expect(entries).to.be.an.instanceof(Array);
+                    expect(entries.length).to.equal(2);
+                });
+        });
+
+        it('should respect the `limit` query', function() {
+            return r.get('/api/entry?limit=1').should.be.fulfilled
+                .then((entries) => {
+                    expect(entries).to.be.an.instanceof(Array);
+                    expect(entries.length).to.equal(1);
+                });
+        });
+
+        it('should respect the `after` query', function() {
+            return r.get(`/api/entry?limit=1&after=${entries[2]._id}`).should.be.fulfilled
+                .then((en) => {
+                    expect(en).to.be.an.instanceof(Array);
+                    expect(en.length).to.equal(1);
+                    expect(en[0].id).to.equal(entries[0]._id);
+                });
+        });
 
     });
 

@@ -10,7 +10,7 @@ export default router;
 router
 
     .param('entry', (req, res, next, id) => {
-        Entry.findById(id).exec()
+        Entry.findById(id)
             .then((entry) => {
                 if (!entry) throw NotFoundError();
                 req.params.entry = entry;
@@ -32,11 +32,10 @@ router
                 req.query.added = Date.now();
                 return next();
             }
-
-            Entry.findById(req.query.after).exec()
+            Entry.findById(req.query.after)
                 .then((entry) => {
                     if (!entry) throw NotFoundError();
-                    req.params.entry = entry;
+                    req.query.added = entry.added;
                 })
                 .nodeify(next);
         },
@@ -45,10 +44,18 @@ router
         (req, res, next) => {
             Entry
                 .find({
-                    allowed: true,
+                    allowed: { $eq: true },
                     added: { $lt: req.query.added }
                 })
-                .limit(req.query.limit);
+                .limit(req.query.limit)
+                .exec()
+                .then(
+                    (entries) => {
+                        entries = entries.map((entry) => entry.toJSON());
+                        res.send(entries);
+                    },
+                    next
+                );
         }
     )
 

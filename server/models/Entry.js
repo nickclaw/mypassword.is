@@ -4,13 +4,13 @@ import {generate as generateId} from 'shortid';
 import vlad from 'vlad';
 
 let schema = new Schema({
-    _id: { type: String, 'default': generateId },
+    _id: { type: String, default: generateId },
 
     password: { type: String },
     reason: { type: String },
 
-    allowed: {type: Boolean, default: false},
-    added: {type: Number},
+    allowed: {type: Boolean, default: false },
+    added: {type: Number, default: Date.now() },
 
     view: {
         type: { type: String, default: 'basic' },

@@ -1,0 +1,38 @@
+[
+    {
+        "_id": "entry1",
+        "password": "password",
+        "reason": "this is a reason",
+        "allowed": true,
+        "added": 1429230834757,
+        "view": {
+            "type": "basic",
+            "classes": [],
+            "background": ""
+        }
+    },
+    {
+        "_id": "entry2",
+        "password": "password",
+        "reason": "this is a reason",
+        "allowed": false,
+        "added": 1429230835757,
+        "view": {
+            "type": "basic",
+            "classes": [],
+            "background": ""
+        }
+    },
+    {
+        "_id": "entry3",
+        "password": "password",
+        "reason": "this is a reason",
+        "allowed": true,
+        "added": 1429230836757,
+        "view": {
+            "type": "basic",
+            "classes": [],
+            "background": ""
+        }
+    }
+]
