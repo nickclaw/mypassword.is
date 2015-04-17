@@ -2,9 +2,10 @@
     height: auto;
     opacity: 1;
 
-    transition: opacity .1s linear, height .15s ease;
+    transition: opacity .15s linear, height .25s ease;
 
     &.expand-collapsed {
         opacity: 0;
+        pointer-events: none;
     }
 }
