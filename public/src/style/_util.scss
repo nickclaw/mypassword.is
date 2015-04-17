@@ -1,0 +1,76 @@
+.box {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+
+    &.strict {
+        height: 100vh;
+    }
+
+
+    &.half {
+        min-height: 50vh;
+
+        &.strict {
+            height: 50vh;
+        }
+    }
+
+    &.quarter {
+        min-height: 25vh;
+
+        &.strict {
+            height: 25vh;
+        }
+    }
+
+}
+
+.direction {
+    display: flex !important;
+    justify-content: center;
+}
+
+.direction.horizontal {
+    flex-direction: row;
+}
+
+.direction.vertical {
+    flex-direction: column;
+}
+
+.align.start {
+    justify-content: flex-start;
+}
+
+.align.end {
+    justify-content: flex-end;
+}
+
+.align.between {
+    justify-content: space-between;
+}
+
+.align.around {
+    justify-content: space-around;
+}
+
+
+.flex1 {
+    flex: 1;
+}
+.flex2 {
+    flex: 2;
+}
+.flex3 {
+    flex: 3;
+}
+.flex4 {
+    flex: 4;
+}
+.flex5 {
+    flex: 5;
+}
+.flex6 {
+    flex: 6;
+}

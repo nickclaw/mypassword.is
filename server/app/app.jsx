@@ -14,11 +14,25 @@ class App extends Component {
             <html>
                 <head>
                     <title>mypassword.is</title>
+                    <link href="/static/style/index.css" type="text/css" rel="stylesheet" />
                 </head>
                 <body>
                     <InfiniteScroll>
-                        <RouteHandler />
+                        <header>
+                            <RouteHandler />
+                        </header>
+
+                        <main>
+                            <main>
+
+                            </main>
+                        </main>
+
+                        <footer className="box half direction vertical">
+                            <p>You've reached - <span>the_end</span></p>
+                        </footer>
                     </InfiniteScroll>
+                    <script src="/static/app.js" async></script>
                 </body>
             </html>
         );

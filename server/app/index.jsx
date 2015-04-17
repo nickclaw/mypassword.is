@@ -9,7 +9,7 @@ export default function render(req, res, next) {
         renderToStringAsync(<Handler />, function(err, markup, data) {
             if (err) return next(err);
 
-            res.send(injectIntoMarkup(markup, data, ['/static/app.js']))
+            res.send(injectIntoMarkup(markup, data, []))
         });
     });
 }
