@@ -83,7 +83,10 @@ router
 
     .delete('/:entry', auth, (req, res, next) => {
         let entry = req.params.entry;
-        entry.remove(next);
+        entry.remove(function(err) {
+            if (err) return next(err);
+            res.send(entry.toJSON());
+        });
     });
 
 function protect(action) {

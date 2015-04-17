@@ -132,5 +132,28 @@ describe('the entry endpoint', () => {
 
     describe('DELETE /api/entry/:edit - delete', () => {
 
+        var entry = entries[0];
+
+        it('should delete the entry', function() {
+            r.login(true);
+            return r.del(`/api/entry/${entry._id}`).should.be.fulfilled
+                .then(r.logout)
+                .then((e) => {
+                    delete e['id'];
+                    expect(entry).to.shallowDeepEqual(e);
+                })
+        });
+
+        it('should return 401 if not authorized', function() {
+            return r.del(`/api/entry/${entry._id}`).should.be.rejected
+                .then(r.hasStatus(401));
+        });
+
+        it('should return 404 if deleting an unknown entry', function() {
+            r.login(true);
+            return r.del(`/api/entry/asdfasd`).should.be.rejected
+                .then(r.logout)
+                .then(r.hasStatus(404));
+        });
     });
 });
