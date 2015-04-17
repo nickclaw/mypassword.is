@@ -1,7 +1,7 @@
 var cluster = require('cluster');
 
 module.exports = Promise.all([
-    require('./app'),
+    require('./router'),
     require('./database'),
     // require('./some_other_service')
 ]);
