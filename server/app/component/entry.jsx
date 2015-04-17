@@ -7,7 +7,7 @@ export default class Entry extends Component {
         let entry = this.props.entry;
 
         // apply entry.view
-        let style = { backgroundImage: `url(/static/image/${entry.view.background})` },
+        let style = { backgroundImage: `url(${entry.view.background})` },
             classes = "entry box direction vertical";
         classes += " " + entry.view.type + " " + entry.view.classes.join(" ");
 

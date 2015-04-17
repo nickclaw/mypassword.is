@@ -64,6 +64,7 @@ let routes = (
     <Route handler={App} path="/">
         <DefaultRoute handler={ require('./page/home.jsx') } />
         <Route path="/p/:password" name="password" handler={require('./page/entry.jsx')} />
+        <Route path="/submit" name="submit" handler={require('./page/submit.jsx')} />
         <NotFoundRoute handler={require('./page/404.jsx')} />
     </Route>
 );
