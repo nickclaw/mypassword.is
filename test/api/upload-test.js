@@ -40,6 +40,30 @@ describe('the upload endpoint', () => {
                     return wasUploaded(res.body.image);
                 });
         });
+
+        it('should return 400 on skinny image', function() {
+            return uploadImage(__dirname + '/../fixtures/image.skinny.jpg').should.be.rejected
+                .then(r.hasStatus(400))
+                .then((res) => {
+                    expect(res.response.body).to.have.keys(['image']);
+                });
+        });
+
+        it('should return 400 on short image', function() {
+            return uploadImage(__dirname + '/../fixtures/image.short.jpg').should.be.rejected
+                .then(r.hasStatus(400))
+                .then((res) => {
+                    expect(res.response.body).to.have.keys(['image']);
+                });
+        });
+
+        it('should return 400 on invalid type', function() {
+            return uploadImage(__dirname + '/../fixtures/entries.json').should.be.rejected
+                .then(r.hasStatus(400))
+                .then((res) => {
+                    expect(res.response.body).to.have.keys(['image']);
+                });
+        });
     });
 });
 
