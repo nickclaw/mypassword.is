@@ -1,7 +1,7 @@
 {
     "APP": {
-        "MAX_CPUS": 4,
-        "REVIVE": true,
+        "MAX_CPUS": 1,
+        "REVIVE": false,
         "RES_DIR": "public/src",
         "LIB_DIR": "public/lib"
     },
@@ -18,18 +18,18 @@
 
     "DATABASE": {
 
-        "NAME": "name",
+        "NAME": "database",
         "HOST": "localhost",
-        "PORT": 9999,
+        "PORT": 27017,
 
         "USER": "root",
-        "PASS": "password"
+        "PASS": ""
     },
 
     "LOGGING": {
         "CONSOLE": {
             "ENABLED": true,
-            "LEVEL": "info"
+            "LEVEL": "silly"
         },
         "FILE": {
             "ENABLED": true,
