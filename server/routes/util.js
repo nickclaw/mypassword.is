@@ -11,5 +11,6 @@ export let NotFoundError = createError('NotFoundError', {
 });
 
 export function auth(req, res, next) {
-
+    if (req.user) return next();
+    next(NotAuthorizedError());
 }

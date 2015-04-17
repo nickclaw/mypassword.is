@@ -2,12 +2,13 @@ import Entry from "../../server/models/Entry";
 import entries from "../fixtures/entries";
 
 var goodEntry = {
-    password: "password",
-    reason: "this is the reason"
+    password: "hello world",
+    reason: "this is a better reason"
 };
 
 var badEntry = {
-
+    password: "",
+    reason: ""
 };
 
 describe('the entry endpoint', () => {
@@ -73,9 +74,59 @@ describe('the entry endpoint', () => {
 
     describe('POST /api/entry/:entry - retrieve', () => {
 
+        it('should retrieve the entry', function() {
+            let entry = entries[0];
+
+            return r.get(`/api/entry/${entry._id}`).should.be.fulfilled
+                .then((e) => {
+                    expect(e).to.have.keys(['id', 'reason', 'password', 'allowed', 'view']);
+                    expect(e.id).to.equal(entry._id);
+                    expect(e.reason).to.equal(entry.reason);
+                    expect(e.password).to.equal(entry.password);
+                });
+        });
+
+        it('should 404 if the entry doesn\'t exist', function() {
+            return r.get(`/api/entry/notanentry`).should.be.rejected
+                .then(r.hasStatus(404));
+        });
+
     });
 
     describe('POST /api/entry/:entry - edit', () => {
+
+        var entry = entries[0];
+
+        it('should edit the entry', function() {
+            r.login(true);
+            return r.post(`/api/entry/${entry._id}`, goodEntry).should.be.fulfilled
+                .then(r.logout)
+                .then((e) => {
+                    expect(e).to.shallowDeepEqual(goodEntry);
+                })
+        });
+
+        it('should return 400 if a bad edit is made', function() {
+            r.login(true);
+            return r.post(`/api/entry/${entry._id}`, badEntry).should.be.rejected
+                .then(r.logout)
+                .then(r.hasStatus(400))
+                .then((res) => {
+                    expect(res.response.body).to.have.keys(['reason', 'password']);
+                });
+        });
+
+        it('should return 401 if not authorized', function() {
+            return r.post(`/api/entry/${entry._id}`, goodEntry).should.be.rejected
+                .then(r.hasStatus(401));
+        });
+
+        it('should return 404 if editing an unknown entry', function() {
+            r.login(true);
+            return r.post(`/api/entry/asdfasd`, goodEntry).should.be.rejected
+                .then(r.logout)
+                .then(r.hasStatus(404));
+        });
 
     });
 

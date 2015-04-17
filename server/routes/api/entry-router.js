@@ -75,7 +75,10 @@ router
     .post('/:entry', auth, protect('edit'), (req, res, next) => {
         let entry = req.params.entry;
         entry.set(req.body);
-        entry.save(next);
+        entry.save(function(err) {
+            if (err) return next(err);
+            res.send(entry.toJSON());
+        });
     })
 
     .delete('/:entry', auth, (req, res, next) => {

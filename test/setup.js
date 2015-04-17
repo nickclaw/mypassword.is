@@ -1,5 +1,7 @@
 require('../config/config.js');
 
+var stub = require('passport-stub');
+
 var chai = require('chai');
 chai.should();
 chai.use( require('chai-as-promised') );

@@ -46,7 +46,7 @@ var whitelists = {
         reason: true
     },
 
-    update: {
+    edit: {
         password: true,
         reason: true,
         allowed: true,
