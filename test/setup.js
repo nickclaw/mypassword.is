@@ -3,17 +3,19 @@ require('../config/config.js');
 var chai = require('chai');
 chai.should();
 chai.use( require('chai-as-promised') );
+chai.use( require('chai-shallow-deep-equal') );
+
+var URL = C.SERVER.HOST + ":" + C.SERVER.PORT;
 
 global.expect = chai.expect;
 global.request = require('superagent');
-global.URL = C.SERVER.HOST + ":" + C.SERVER.PORT;
 global._ = require('lodash');
 
 global.r = {
     get: function get(url) {
         return new Promise(function(res, rej) {
             request
-                .get(C.SERVER.HOST + ':' + C.SERVER.PORT + url)
+                .get(URL + url)
                 .end(handle(res, rej));
         });
     },
@@ -21,7 +23,7 @@ global.r = {
     post: function post(url, data) {
         return new Promise(function(res, rej) {
             request
-                .post(C.SERVER.HOST + ':' + C.SERVER.PORT + url)
+                .post(URL + url)
                 .send(data)
                 .end(handle(res, rej));
         });
@@ -30,7 +32,7 @@ global.r = {
     del: function del(url) {
         return new Promise(function(res, rej) {
             request
-                .del(C.SERVER.HOST + ':' + C.SERVER.PORT + url)
+                .del(URL + url)
                 .end(handle(res, rej));
         });
     },

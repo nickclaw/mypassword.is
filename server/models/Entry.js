@@ -22,14 +22,17 @@ let schema = new Schema({
 });
 
 schema.methods.toJSON = function() {
-    return screen(this.toObject(), 'view');
+    return Entry.screen(this.toObject({ virtuals: true }), 'view');
 }
 
-export default model('Entry', schema);
+let Entry = model('Entry', schema);
 
-export function screen(data, action) {
+Entry.screen = function(data, action) {
     return whitelist(data, whitelists[action]);
 }
+
+export default Entry;
+
 
 var whitelists = {
     create: {
@@ -45,6 +48,7 @@ var whitelists = {
     },
 
     view: {
+        id: true,
         password: true,
         reason: true,
         allowed: true,

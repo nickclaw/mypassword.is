@@ -54,7 +54,6 @@ router
 
     .post('/', protect('create'), (req, res, next) => {
         let entry = new Entry(req.body);
-
         entry.save((err) => {
             if (err) return next(err);
             res.send(entry.toJSON());

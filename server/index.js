@@ -2,7 +2,7 @@ var cluster = require('cluster');
 
 module.exports = Promise.all([
     require('./app'),
-    // require('./database'),
+    require('./database'),
     // require('./some_other_service')
 ]);
 

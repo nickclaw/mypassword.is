@@ -1,30 +1,26 @@
-var stub = require('passport-stub');
+var stub = require('passport-stub'),
+    mongoose = require('mongoose');
 
 before(function() {
 
     return require('../server/index')
-        .spread(function(app) {
+        .spread(function(app, db) {
             stub.install(app);
-
-            //
-            // Load fixtures here if you want
-            //
         });
 
 });
 
-describe('the application', function() {
+describe('mypassword.is website', function() {
 
-    //
-    // Require other tests here
-    //
+    describe('api', function() {
+        require('./api/entry-test');
+    });
 
 });
 
 after(function() {
-
-    //
-    // Cleanup/drop database
-    //
-
+    if (mongoose.connection && mongoose.connection.db) {
+        if (mongoose.connection.db) mongoose.connection.db.dropDatabase();
+        mongoose.connection.close();
+    }
 });

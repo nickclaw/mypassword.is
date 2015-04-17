@@ -51,8 +51,17 @@ app.use(function(err, req, res, next) {
     res.send(500);
 });
 
-module.exports = Promise.try(app.listen, [ C.SERVER.PORT ], app);
+module.exports = new Promise((res, rej) => {
+    app.listen(C.SERVER.PORT, function(err) {
+        if (err) return rej(err);
+        res(app);
+    });
+})
 
-module.exports.then(function() {
-    Log.info("Server listening on: %s", C.SERVER.PORT);
-});
+module.exports
+    .then(function() {
+        Log.info("Server listening on: %s", C.SERVER.PORT);
+    })
+    .catch(function() {
+        Log.error("Server not listening on: %s", C.SERVER.PORT);
+    });
