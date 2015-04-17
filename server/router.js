@@ -47,7 +47,7 @@ app.use( passport.session() );
 
 // load routes
 app.use( require('./routes/') );
-app.get('/', require('./app/'));
+app.get('*', require('./app/'));
 
 //
 // Catch all other requests
