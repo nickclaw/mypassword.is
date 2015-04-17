@@ -43,14 +43,18 @@ var validate = vlad({
 var whitelists = {
     create: {
         password: true,
-        reason: true
+        reason: true,
+        view: {
+            background: true
+        }
     },
 
     edit: {
         password: true,
         reason: true,
         allowed: true,
-        added: true
+        added: true,
+        view: true
     },
 
     view: {

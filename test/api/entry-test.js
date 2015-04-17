@@ -3,7 +3,10 @@ import entries from "../fixtures/entries";
 
 var goodEntry = {
     password: "hello world",
-    reason: "this is a better reason"
+    reason: "this is a better reason",
+    view: {
+        background: "hello"
+    }
 };
 
 var badEntry = {
