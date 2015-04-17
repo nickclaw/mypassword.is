@@ -1,6 +1,5 @@
 import Router from 'express';
-import {NotFoundError, NotAuthorizedError} from './util';
-import {ValidationError} from 'vlad';
+import {NotFoundError, NotAuthorizedError, ValidationError} from './util';
 
 let router = Router();
 
@@ -19,12 +18,14 @@ router
         res.send(501);
     })
     .use((err, req, res, next) => {
-        if ( err instanceof ValidationError ) return res.sendStatus(400);
+        if ( err instanceof ValidationError ) return res.status(400).send(err.toJSON());
         if ( err instanceof NotAuthorizedError ) return res.sendStatus(401)
         if ( err instanceof NotFoundError ) return res.sendStatus(404);
 
+        next(err);
+    })
+    .use((err, req, res, next) => {
         Log.error(err);
-
         res.sendStatus(500);
     })
 ;

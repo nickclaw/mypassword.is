@@ -1,5 +1,7 @@
 import createError from 'error-factory';
 
+export {ValidationError} from 'vlad';
+
 export let NotAuthorizedError = createError('NotAuthorizedError', {
     message: "Not authorized"
 });

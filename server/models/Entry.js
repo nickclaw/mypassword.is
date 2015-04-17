@@ -1,38 +1,44 @@
 import {Schema, model} from 'mongoose';
 import whitelist from 'screener';
 import {generate as generateId} from 'shortid';
+import vlad from 'vlad';
 
 let schema = new Schema({
-    _id: {
-        type: String,
-        'default': generateId
-    },
+    _id: { type: String, 'default': generateId },
 
-    password: {type: String, required: true},
-    reason: {type: String, required: true},
+    password: { type: String },
+    reason: { type: String },
 
-    allowed: {type: Boolean, default: false, select: false},
-    added: {type: Number, select: false},
+    allowed: {type: Boolean, default: false},
+    added: {type: Number},
 
     view: {
-        type: {type: String, default: 'basic', required: true},
-        classes: [String],
+        type: { type: String, default: 'basic' },
+        classes: [ String ],
         background: String
     }
 });
 
 schema.methods.toJSON = function() {
     return Entry.screen(this.toObject({ virtuals: true }), 'view');
-}
+};
+
+schema.methods.validate = function(done) {
+    validate(this).nodeify(done);
+};
 
 let Entry = model('Entry', schema);
 
 Entry.screen = function(data, action) {
     return whitelist(data, whitelists[action]);
-}
+};
 
 export default Entry;
 
+var validate = vlad({
+    password: vlad.string.required.min(1).max(64),
+    reason: vlad.string.required.min(1)
+});
 
 var whitelists = {
     create: {
